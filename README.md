@@ -1,6 +1,5 @@
 # UnityExamples - My Unity Learning and Projects  
-- ![Unity](https://upload.wikimedia.org/wikipedia/commons/1/19/Unity_Technologies_logo.svg)
-- - ![C#](https://img.icons8.com/?size=100&id=55204&format=png&color=000000) 
+ ![Unity](https://upload.wikimedia.org/wikipedia/commons/1/19/Unity_Technologies_logo.svg)  ![C#](https://img.icons8.com/?size=100&id=55204&format=png&color=000000) 
 
 
 
