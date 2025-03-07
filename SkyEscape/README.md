@@ -6,14 +6,33 @@ SkyEscape is a **fast-paced vertical platformer** where players must escape risi
 - Programming Language: **C#**
 
 
-<div style="display: flex; justify-content: center;">
-  <img src="img/2025-03-06-GameOver.png" width="250"/>
-  <img src="img/2025-03-06-dead.png" width="250"/>
+<!-- Bootstrap Carousel -->
+<div id="gameScreenshots" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="img/2025-03-06-GameOver.png" class="d-block w-100" alt="Game Over">
+    </div>
+    <div class="carousel-item">
+      <img src="img/2025-03-06-dead.png" class="d-block w-100" alt="Dead">
+    </div>
+    <div class="carousel-item">
+      <img src="img/2025-03-06-inGame.png" class="d-block w-100" alt="In Game">
+    </div>
+    <div class="carousel-item">
+      <img src="img/2025-03-06-startGame.png" class="d-block w-100" alt="Start Game">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#gameScreenshots" role="button" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+  </a>
+  <a class="carousel-control-next" href="#gameScreenshots" role="button" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  </a>
 </div>
-<div style="display: flex; justify-content: center;">
-  <img src="img/2025-03-06-inGame.png" width="250"/>
-  <img src="img/2025-03-06-startGame.png" width="250"/>
-</div>
+
+<!-- Bootstrap CSS (Add if needed) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 ---
 
