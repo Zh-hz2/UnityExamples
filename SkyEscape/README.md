@@ -1,6 +1,6 @@
 #  SkyEscape - A Vertical Escape Platformer  
 
-SkyScape is a **fast-paced vertical platformer** where players must escape rising dangers by jumping between platforms, avoiding obstacles, and using special mechanics like wall jumps and fans to survive. As platforms continuously move upwards, the player must climb higher while avoiding deadly spikes and other hazards. With each level, survival time increases, making the challenge even harder.
+SkyEscape is a **fast-paced vertical platformer** where players must escape rising dangers by jumping between platforms, avoiding obstacles, and using special mechanics like wall jumps and fans to survive. As platforms continuously move upwards, the player must climb higher while avoiding deadly spikes and other hazards. With each level, survival time increases, making the challenge even harder.
 
 - **Game Engine:** Unity
 - **Programming Language:** C#
@@ -28,8 +28,7 @@ SkyScape is a **fast-paced vertical platformer** where players must escape risin
 
 ---
 
-## 📂 **Project Structure**
-SkyScape/ │── Assets/ │ ├── Animation/ # Player animations (Run, Jump, Fall, etc.) │ ├── Scripts/ # Core game scripts │ ├── Prefabs/ # Pre-made objects (platforms, obstacles) │ ├── Sprites/ # Game art (player, environment, UI) │ ├── UI/ # UI elements (menus, buttons, text) │── Scenes/ # Unity scene files │── README.md # Game overview & instructions
+
 
 
 ##  **Future Improvements**
@@ -43,7 +42,7 @@ SkyScape/ │── Assets/ │ ├── Animation/ # Player animations (Run, J
 ## 📂 **Project Structure**
 The project follows a structured file organization to keep assets and scripts well-managed.
 
-## 📁 **SkyEscape**
+ 📁 **SkyEscape**
 - **`📂 Assets/`** → *Main Unity asset folder (contains all game resources)*
   - **`📂 Animation/`** → *Stores character animations (`Run`, `Jump`, `Fall`, etc.)*
   - **`📂 Materials/`** → *Materials for shaders and rendering effects*
