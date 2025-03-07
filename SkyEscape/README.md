@@ -7,10 +7,10 @@ SkyEscape is a **fast-paced vertical platformer** where players must escape risi
 
 
 <!-- Bootstrap Carousel -->
-<div id="gameScreenshots" class="carousel slide" data-bs-ride="carousel">
+<div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="img/2025-03-06-GameOver.png" class="d-block w-100" alt="Game Over">
+      <img src="img/2025-03-06-GameOver.png" class="d-block w-100" alt="GameOver">
     </div>
     <div class="carousel-item">
       <img src="img/2025-03-06-dead.png" class="d-block w-100" alt="Dead">
@@ -22,16 +22,19 @@ SkyEscape is a **fast-paced vertical platformer** where players must escape risi
       <img src="img/2025-03-06-startGame.png" class="d-block w-100" alt="Start Game">
     </div>
   </div>
-  <a class="carousel-control-prev" href="#gameScreenshots" role="button" data-bs-slide="prev">
+  <a class="carousel-control-prev" href="#imageCarousel" role="button" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
   </a>
-  <a class="carousel-control-next" href="#gameScreenshots" role="button" data-bs-slide="next">
+  <a class="carousel-control-next" href="#imageCarousel" role="button" data-bs-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
   </a>
 </div>
 
-<!-- Bootstrap CSS (Add if needed) -->
+<!-- Bootstrap CSS (Include this in your project) -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<!-- Bootstrap JS (Include this in your project) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 ---
