@@ -1,9 +1,11 @@
-# UnityExample - My Unity Learning and Projects  - ![Unity](https://upload.wikimedia.org/wikipedia/commons/1/19/Unity_Technologies_logo.svg) - ![C#](https://img.icons8.com/?size=100&id=55204&format=png&color=000000) **Programming Language:** C#
+# UnityExamples - My Unity Learning and Projects  
+- ![Unity](https://upload.wikimedia.org/wikipedia/commons/1/19/Unity_Technologies_logo.svg)
+- - ![C#](https://img.icons8.com/?size=100&id=55204&format=png&color=000000) 
 
 
 
 ## 📖 **Introduction**  
-**UnityExample** is a personal repository where I document my journey in learning and creating projects with **Unity**. This folder serves as a collection of my **Unity experiments, personal projects, and learning materials**, allowing me to track progress and review past work for future improvement.  
+**UnityExamples** is a personal repository where I document my journey in learning and creating projects with **Unity**. This folder serves as a collection of my **Unity experiments, personal projects, and learning materials**, allowing me to track progress and review past work for future improvement.  
 
 ---
 
