@@ -3,7 +3,10 @@
 SkyEscape is a **fast-paced vertical platformer** where players must escape rising dangers by jumping between platforms, avoiding obstacles, and using special mechanics like wall jumps and fans to survive. As platforms continuously move upwards, the player must climb higher while avoiding deadly spikes and other hazards. With each level, survival time increases, making the challenge even harder.
 
 - **Game Engine:** Unity
+- - **<img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Unity_Technologies_logo.svg" width="18"/> Game Engine:** **Unity**
 - **Programming Language:** C#
+- - **<img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/C_Sharp_wordmark.svg" width="18"/> Programming Language:** **C#**
+
 
 ---
 
