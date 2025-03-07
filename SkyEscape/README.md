@@ -4,7 +4,7 @@ SkyEscape is a **fast-paced vertical platformer** where players must escape risi
 
 - Game Engine: **Unity** 
 - Programming Language: **C#**  
-![Image Description](img/2025-03-06 224409.png) ![Image Description](img/2025-03-06 224457.png)
+![Image a](img/2025-03-06-a.png) ![Image b](img/2025-03-06-b.png)
 
 
 ---
