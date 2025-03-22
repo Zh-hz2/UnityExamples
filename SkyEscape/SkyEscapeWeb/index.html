@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity Web Player | SkyEscape</title>
+    <!-- 引入 Loader.js 文件 -->
+    <script src="Build/SkyEscapeWeb.loader.js"></script>
   </head>
   <body style="text-align: center; padding: 0; border: 0; margin: 0;">
     <canvas id="unity-canvas" width="960" height="600" tabindex="-1" style="width: 960px; height: 600px; background: #1F1F20"></canvas>
@@ -22,7 +24,6 @@
         document.body.style.textAlign = "left";
       }
 
-      // 解决 GitHub Pages 不支持 .gz 文件的问题
       function decompressUrl(url) {
         return url + "?useCompression";
       }
