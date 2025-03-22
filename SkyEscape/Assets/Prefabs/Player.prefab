@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4059231473590205562}
   - component: {fileID: 4440407380223501380}
   - component: {fileID: 9094413817045611710}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -105,10 +105,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  jumpForce: 8
+  doubleJumpForce: 8
+  wallCheckDistance: 0.5
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  wallJumpForce: 8
+  wallJumpAngle: {x: 1, y: 1}
   checkRadius: 0.11
   platform:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
   groundCheck: {fileID: 7730032323940520665}
   isOnGround: 0
 --- !u!95 &4059231473590205562
@@ -215,7 +223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2517311008130471009}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: checkPoint
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}

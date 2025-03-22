@@ -1,215 +1,262 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using TMPro; // ✅ 引入 TextMeshPro 命名空间
-using System.Collections;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
     [Header("Game Settings")]
-    public float baseSurvivalTime = 30f; // 第一关存活时间
+    public float baseSurvivalTime = 30f;
     private float survivalTime;
     private float timer;
     private int level = 1;
     private bool isGameRunning = false;
 
     [Header("UI Elements")]
-    public GameObject startPanel;     // ✅ 开始界面
-    public GameObject gameOverPanel;  // ✅ 游戏失败界面
-    public GameObject winPanel;       // ✅ 游戏胜利界面
-    public TextMeshProUGUI timerText; // ✅ 计时器
-    public TextMeshProUGUI levelText; // ✅ 关卡信息
-    public Button startButton;        // ✅ "Start Game" 按钮
-    public Button continueButton;     // ✅ "Continue Game" 按钮
-    public Button restartButton;      // ✅ "Restart" 按钮
-    public Button quitButton;         // ✅ "Quit" 按钮
-    public Button nextLevelButton;    // ✅ "Next Level" 按钮
+    public GameObject startPanel;
+    public GameObject gameOverPanel;
+    public GameObject winPanel;
+    public TextMeshProUGUI timerText;
+    public TextMeshProUGUI levelText;
 
-    void Awake()
+    public Button startButton;
+    public Button continueButton;
+    public Button restartButton;
+    public Button quitButton;
+    public Button nextLevelButton;
+    public Button reviveButton;
+
+    [Header("Game Rule Modifiers")]
+    public float difficultyMultiplier = 1.2f;
+    public int maxLevel = 5;
+    public float reviveBonusTime = 5f;  // 复活时加的时间(可选)
+
+    private void Awake()
     {
         if (instance == null)
-        {
             instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
     }
 
-    void Start()
+    private void Start()
     {
+        // 初始暂停游戏
+        Time.timeScale = 0f;
+        isGameRunning = false;
+
         LoadGame();
         UpdateUI();
 
-        // **确保 UI 变量绑定**
-        if (startPanel == null || gameOverPanel == null || winPanel == null)
-        {
-            Debug.LogError("❌ UI elements are NOT assigned in GameManager! Please check Inspector.");
-            return;
-        }
-
-        // **游戏开始时，只显示 StartPanel**
+        // 只显示开始面板，其它隐藏
         startPanel.SetActive(true);
         gameOverPanel.SetActive(false);
         winPanel.SetActive(false);
+        timerText.gameObject.SetActive(false);
+        levelText.gameObject.SetActive(false);
 
-        // **绑定按钮**
+        // 绑定按钮
         startButton.onClick.AddListener(StartGame);
         continueButton.onClick.AddListener(ContinueGame);
         restartButton.onClick.AddListener(RestartGame);
         quitButton.onClick.AddListener(QuitGame);
-        nextLevelButton.onClick.AddListener(NextLevel); // ✅ 绑定 "Next Level" 按钮
+        // nextLevelButton.onClick.AddListener(NextLevel);
+        reviveButton.onClick.AddListener(ReviveGame);
 
-        // **如果没有存档，隐藏 Continue 按钮**
+        // 如果有存档则显示“Continue”
         continueButton.gameObject.SetActive(PlayerPrefs.HasKey("Level"));
     }
 
-    void Update()
+    private void Update()
     {
         if (isGameRunning)
         {
             timer -= Time.deltaTime;
             timerText.text = "Time Left: " + Mathf.Ceil(timer) + "s";
-
             if (timer <= 0)
             {
-                WinGame(); // **确保时间结束时调用 `WinGame()`**
+                WinGame();
             }
         }
     }
 
+    // 存活时间计算示例：指数增长
+    private float CalculateSurvivalTime(int currentLevel)
+    {
+        return baseSurvivalTime * Mathf.Pow(difficultyMultiplier, currentLevel - 1);
+    }
+
     public void StartGame()
     {
-        Debug.Log("✅ Start Game Clicked!");
-        
-        level = 1; // **游戏从第一关开始**
-        survivalTime = baseSurvivalTime;
+        level = 1;
+        survivalTime = CalculateSurvivalTime(level);
         timer = survivalTime;
         isGameRunning = true;
 
+        // 隐藏开始界面，显示游戏内UI
         startPanel.SetActive(false);
         gameOverPanel.SetActive(false);
         winPanel.SetActive(false);
+        timerText.gameObject.SetActive(true);
+        levelText.gameObject.SetActive(true);
 
+        Time.timeScale = 1f;
         UpdateUI();
     }
 
     public void ContinueGame()
     {
-        Debug.Log("✅ Continue Game Clicked!");
+        // “继续游戏”只做读档后恢复
         isGameRunning = true;
         startPanel.SetActive(false);
+        gameOverPanel.SetActive(false);
+        winPanel.SetActive(false);
+        timerText.gameObject.SetActive(true);
+        levelText.gameObject.SetActive(true);
+
+        Time.timeScale = 1f;
     }
 
     public void RestartGame()
     {
-        Debug.Log("🔄 Restart Game Clicked!");
         level = 1;
-        survivalTime = baseSurvivalTime;
+        survivalTime = CalculateSurvivalTime(level);
         timer = survivalTime;
         isGameRunning = true;
 
         SaveGame();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1f;
     }
 
     public void GameOver()
     {
-        Debug.Log("💀 Game Over!");
         isGameRunning = false;
+        Time.timeScale = 0f;
 
-        // **立即启用 GameOverPanel**
+        timerText.gameObject.SetActive(false);
+        levelText.gameObject.SetActive(false);
         startPanel.SetActive(false);
         winPanel.SetActive(false);
         gameOverPanel.SetActive(true);
     }
 
+    /// <summary>
+    /// Revive 只管复活，不再调用 ContinueGame()
+    /// </summary>
+    public void ReviveGame()
+    {
+        Debug.Log("Revive Game Clicked!");
+        
+        // 如果你想给玩家多一些时间：
+        timer += reviveBonusTime;
+
+        // 1. 隐藏 GameOverPanel
+        gameOverPanel.SetActive(false);
+
+        // 2. 解除玩家死亡状态
+        if (PlayerController.instance != null)
+        {
+            PlayerController.instance.ResetState();
+        }
+
+        // 3. 恢复游戏
+        isGameRunning = true;
+        Time.timeScale = 1f;
+
+        // 如果你想在UI上提示“你已复活”，可以在这里加文字提示
+        // 例如: ShowReviveMessage();
+    }
+
     public void WinGame()
     {
-        if (level == 5) // **第五关胜利，游戏结束**
+        if (level >= maxLevel)
         {
-            Debug.Log("🏆 You Win! Game Completed!");
             isGameRunning = false;
+            Time.timeScale = 0f;
 
-            // **隐藏所有 UI，只显示 WinPanel**
+            timerText.gameObject.SetActive(false);
+            levelText.gameObject.SetActive(false);
             startPanel.SetActive(false);
             gameOverPanel.SetActive(false);
             winPanel.SetActive(true);
 
-            nextLevelButton.gameObject.SetActive(false); // **隐藏 "Next Level" 按钮**
+            nextLevelButton.gameObject.SetActive(false);
         }
         else
         {
-            Debug.Log($"🏆 Level {level} Complete! Moving to Level {level + 1}!");
-
             isGameRunning = false;
-            winPanel.SetActive(true);
-            gameOverPanel.SetActive(false);
-            startPanel.SetActive(false);
+            Time.timeScale = 0f;
 
-            nextLevelButton.gameObject.SetActive(true); // **显示 "Next Level" 按钮**
+            timerText.gameObject.SetActive(false);
+            levelText.gameObject.SetActive(false);
+            startPanel.SetActive(false);
+            gameOverPanel.SetActive(false);
+            winPanel.SetActive(true);
+
+            nextLevelButton.gameObject.SetActive(true);
+
         }
     }
 
-    public void NextLevel()
-    {
-        Debug.Log($"⏭ Moving to Level {level + 1}");
-        
-        level++; // **升级到下一关**
-        survivalTime = baseSurvivalTime + (level - 1) * 30f; // **每关增加 30s**
-        timer = survivalTime;
-        isGameRunning = true;
+public void NextLevel()
+{
+    level++;
 
-        SaveGame(); // **存档下一关的信息**
-        
-        // **隐藏 WinPanel，继续游戏**
-        winPanel.SetActive(false);
-        nextLevelButton.gameObject.SetActive(false);
-        
-        UpdateUI();
-    }
+    survivalTime = CalculateSurvivalTime(level);
+
+    timer = survivalTime;
+    isGameRunning = true;
+
+    SaveGame();
+
+    winPanel.SetActive(false);
+    nextLevelButton.gameObject.SetActive(false);
+    timerText.gameObject.SetActive(true);
+    levelText.gameObject.SetActive(true);
+
+    Time.timeScale = 1f;
+
+    UpdateUI();
+    // nextLevelButton.interactable = false;
+}
+
 
     public void QuitGame()
     {
-        Debug.Log("❌ Quit Game!");
         Application.Quit();
     }
 
-    void UpdateUI()
+    private void UpdateUI()
     {
         if (timerText != null)
             timerText.text = "Time Left: " + Mathf.Ceil(timer) + "s";
-        else
-            Debug.LogError("❌ TimerText is NOT assigned in GameManager!");
-
         if (levelText != null)
             levelText.text = "Level: " + level;
-        else
-            Debug.LogError("❌ LevelText is NOT assigned in GameManager!");
     }
 
-    void SaveGame()
+    private void SaveGame()
     {
         PlayerPrefs.SetInt("Level", level);
         PlayerPrefs.SetFloat("Timer", timer);
         PlayerPrefs.Save();
     }
 
-    void LoadGame()
+    private void LoadGame()
     {
         if (PlayerPrefs.HasKey("Level"))
         {
             level = PlayerPrefs.GetInt("Level");
             timer = PlayerPrefs.GetFloat("Timer");
-            survivalTime = baseSurvivalTime + (level - 1) * 30f;
+            survivalTime = CalculateSurvivalTime(level);
         }
         else
         {
             level = 1;
             timer = baseSurvivalTime;
+            survivalTime = baseSurvivalTime;
         }
     }
 }
